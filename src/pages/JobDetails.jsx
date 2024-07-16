@@ -54,7 +54,7 @@ const JobDetails = () => {
         <span className="font-semibold">Description: </span>
         <ul>
           {job?.description?.split(".").map((desc, index) => (
-            <li className=" font-medium text-gray-600" key={index}>
+            <li className=" font-normal text-gray-600" key={index}>
               {desc}.
             </li>
           ))}
