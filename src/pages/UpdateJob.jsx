@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLoaderData, useParams } from "react-router-dom";
 import CreatableSelect from "react-select/creatable";
@@ -32,21 +32,51 @@ const UpdateJob = () => {
     formState: { errors },
   } = useForm();
 
+  // const onSubmit = (data) => {
+  //   data.skills = selectedOptions;
+  //   // console.log(data);
+  //   fetch(`${API_URL}/jobs/update-job/${id}`, {
+  //     method: "PATCH",
+  //     headers: { "content-type": "application/json" },
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((result) => {
+  //       if (result.acknowledged === true) {
+  //         alert("job updated successfully!!!");
+  //         console.log("job updated successfullly!!!!!");
+  //       }
+  //       reset();
+  //     });
+  // };
+
   const onSubmit = (data) => {
     data.skills = selectedOptions;
-    // console.log(data);
+    console.log("Submitting data:", data);
+
     fetch(`${API_URL}/jobs/update-job/${id}`, {
       method: "PATCH",
-      headers: { "content-type": "application/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        console.log("Response status:", res.status);
+        return res.json();
+      })
       .then((result) => {
-        if (result.acknowledged === true) {
-          alert("job updated successfully!!!");
-          console.log("job updated successfullly!!!!!");
+        console.log("API result:", result);
+        if (result.acknowledged) {
+          console.log("Job update acknowledged");
+          alert("Job updated successfully!!");
+        } else {
+          console.log("Job update not acknowledged", result);
+          alert(`${result.message}`);
         }
-        reset();
+        reset(); // Ensure reset is called correctly
+      })
+      .catch((error) => {
+        console.error("Error updating job:", error);
+        alert("An error occurred while updating the job.");
       });
   };
 
