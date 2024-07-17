@@ -272,7 +272,7 @@ const UpdateJob = () => {
 
           <input
             type="submit"
-            className="bg-blue text-white font-semibold px-8 py-2 rounded-sm cursor-pointer "
+            className="bg-blue hover:bg-indigo-700 text-white font-semibold px-8 py-2 rounded-sm cursor-pointer "
           />
         </form>
       </div>
